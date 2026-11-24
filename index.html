@@ -1,500 +1,652 @@
 <!DOCTYPE html>
 <html lang="pt-BR" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Caliel Militão | Dev, IA & Autor</title>
-    
-    <!-- FAVICON (LIVRO + CHIP DE IA EM SVG NATIVO) -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23120A0C' stroke='%23E5C158' stroke-width='2'/%3E%3Cpath d='M25 65 L50 78 L75 65 L75 45 L50 58 L25 45 Z' fill='%2338121B' stroke='%23E5C158' stroke-width='2.5' stroke-linejoin='round'/%3E%3Cpath d='M25 45 L50 32 L75 45 L50 58 Z' fill='%23240D13' stroke='%23E5C158' stroke-width='2.5' stroke-linejoin='round'/%3E%3Cpath d='M50 32 L50 58' stroke='%23E5C158' stroke-width='2'/%3E%3Cpolygon points='50,40 56,45 50,50 44,45' fill='%23E5C158'/%3E%3C/svg%3E">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,600&display=swap" rel="stylesheet">
-
-    <!-- ScrollReveal JS -->
-    <script src="https://unpkg.com/scrollreveal"></script>
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            base: '#120A0C',         // Fundo principal escuro aveludado
-                            card: '#240D13',         // Cartões vinho escuro profundo
-                            wine: '#4D1522',         // Vinho nobre para detalhes
-                            gold: '#E5C158',         // Dourado antigo metálico vibrante
-                            goldHover: '#C9A33B',    // Hover do dourado
-                            parchment: '#F7F3EE',    // Texto claro pergaminho
-                            muted: '#B8A8A2'         // Texto secundário de alto contraste
-                        }
-                    },
-                    fontFamily: {
-                        serif: ['Playfair Display', 'serif'],
-                        sans: ['Inter', 'sans-serif']
-                    }
-                }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Caliel Militão — Biblioteca Virtual, Obras &amp; Palavra Viva</title>
+  <meta name="description" content="Biblioteca virtual e espaço editorial de Caliel Militão: Antropologia e Sentido, o aplicativo católico Palavra Viva e o e-book em escrita Permanecer Nele." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%23161412'/%3E%3Ctext x='32' y='41' text-anchor='middle' font-family='Georgia, serif' font-size='26' font-weight='600' fill='%23F7F3EA'%3ECM%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+          },
+          colors: {
+            parchment: {
+              50: '#FCFBF7',
+              100: '#F7F3EA',
+              200: '#EDE5D5',
+              300: '#DECFA8',
+            },
+            ink: {
+              900: '#161412',
+              800: '#24201C',
+              700: '#3A342E',
+              600: '#595149',
+              500: '#7D7368',
+            },
+            sacred: {
+              500: '#9A6B26',
+              600: '#7E551B',
+              700: '#5E3E12',
+            },
+            vesper: {
+              950: '#0E121A',
+              900: '#151B26',
+              800: '#1F2838',
             }
+          }
         }
-    </script>
-
-    <style>
-        body {
-            background-color: #120A0C;
-            color: #F7F3EE;
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-        }
-
-        .font-serif-title {
-            font-family: 'Playfair Display', serif;
-        }
-
-        .gold-border {
-            border: 1px solid rgba(229, 193, 88, 0.2);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .gold-border:hover {
-            border-color: rgba(229, 193, 88, 0.65);
-            box-shadow: 0 12px 35px -10px rgba(77, 21, 34, 0.6);
-            transform: translateY(-4px);
-        }
-
-        .glass-card {
-            background: rgba(36, 13, 19, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(8px); }
-        }
-        .animate-float {
-            animation: float 2.5s infinite ease-in-out;
-        }
-
-        .logo-glow {
-            filter: drop-shadow(0 0 8px rgba(229, 193, 88, 0.25));
-            transition: filter 0.3s ease;
-        }
-        .group:hover .logo-glow {
-            filter: drop-shadow(0 0 12px rgba(229, 193, 88, 0.5));
-        }
-    </style>
+      }
+    };
+  </script>
+  <style>
+    .book-3d-wrap {
+      perspective: 1200px;
+    }
+    .book-3d {
+      transform-style: preserve-3d;
+      transform: rotateY(-18deg) rotateX(4deg);
+      transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.55s ease;
+      box-shadow:
+        18px 24px 45px -10px rgba(22, 20, 18, 0.38),
+        4px 6px 12px -2px rgba(22, 20, 18, 0.22);
+    }
+    .book-3d-wrap:hover .book-3d {
+      transform: rotateY(-8deg) rotateX(2deg) translateY(-6px);
+      box-shadow:
+        24px 32px 55px -12px rgba(22, 20, 18, 0.44),
+        6px 10px 18px -2px rgba(22, 20, 18, 0.25);
+    }
+    .book-spine {
+      transform: rotateY(-90deg) translateZ(16px);
+      transform-origin: left center;
+    }
+    .subtle-grid {
+      background-image: radial-gradient(rgba(154, 107, 38, 0.14) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+  </style>
 </head>
-<body class="antialiased selection:bg-brand-gold selection:text-brand-base">
+<body class="bg-parchment-50 text-ink-900 font-sans antialiased selection:bg-sacred-500/20 selection:text-ink-900">
 
-    <!-- HEADER / NAVEGAÇÃO -->
-    <header class="fixed top-0 w-full z-50 bg-brand-base/90 backdrop-blur-md border-b border-brand-gold/15 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-6 py-3.5 flex justify-between items-center">
-            
-            <!-- LOGO EMBUTIDA -->
-            <a href="#" class="flex items-center gap-3.5 group">
-                <svg class="h-11 w-auto logo-glow transition-transform duration-300 group-hover:scale-105" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 68 L50 84 L80 68 L80 44 L50 60 L20 44 Z" fill="#4D1522" stroke="#E5C158" stroke-width="2.5" stroke-linejoin="round"/>
-                    <path d="M20 44 L50 28 L80 44 L50 60 Z" fill="#240D13" stroke="#E5C158" stroke-width="2.5" stroke-linejoin="round"/>
-                    <path d="M50 28 L50 60" stroke="#E5C158" stroke-width="2"/>
-                    <polygon points="50,38 56,44 50,50 44,44" fill="#E5C158"/>
-                </svg>
-                <div class="block">
-                    <span class="font-serif-title text-xl font-bold tracking-wide text-brand-parchment leading-none block">Caliel Militão</span>
-                    <span class="text-[9px] text-brand-gold tracking-widest uppercase mt-1 block font-medium">Dev • IA • Humanidades</span>
-                </div>
-            </a>
-            
-            <!-- Desktop Nav -->
-            <nav class="hidden md:flex space-x-7 text-xs font-medium uppercase tracking-wider text-brand-muted">
-                <a href="#about" class="hover:text-brand-gold transition duration-200">Sobre</a>
-                <a href="#philosophy" class="hover:text-brand-gold transition duration-200">Filosofia</a>
-                <a href="#skills" class="hover:text-brand-gold transition duration-200">Competências</a>
-                <a href="#projects" class="hover:text-brand-gold transition duration-200">Projetos</a>
-            </nav>
-
-            <a href="https://wa.me/5582993326723?text=Ol%C3%A1%2C%20Caliel!%20Gostaria%20de%20conversar." target="_blank" class="hidden lg:inline-flex items-center gap-2 px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-brand-base bg-brand-gold hover:bg-brand-goldHover transition duration-300 rounded-sm shadow-md hover:shadow-brand-gold/20">
-                <i class="fa-brands fa-whatsapp text-sm"></i>
-                <span>Contato Direto</span>
-            </a>
-
-            <!-- Mobile Menu Button -->
-            <button id="mobile-menu-btn" class="md:hidden text-brand-gold text-2xl focus:outline-none p-2">
-                <i class="fa-solid fa-bars-staggered"></i>
-            </button>
+  <!-- Barra Superior -->
+  <header class="sticky top-0 z-40 bg-parchment-50/90 backdrop-blur-md border-b border-parchment-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2.5 group">
+        <span class="w-8 h-8 rounded-full bg-ink-900 text-parchment-100 flex items-center justify-center font-serif text-lg font-semibold tracking-tight group-hover:bg-sacred-600 transition-colors">
+          CM
+        </span>
+        <div class="leading-tight">
+          <span class="font-serif text-lg font-semibold tracking-wide text-ink-900 block">Caliel Militão</span>
+          <span class="text-[11px] uppercase tracking-[0.18em] text-ink-500 hidden sm:block">Biblioteca Virtual</span>
         </div>
+      </a>
 
-        <!-- Mobile Menu Dropdown -->
-        <div id="mobile-menu" class="hidden md:hidden bg-brand-base/98 border-b border-brand-gold/20 px-6 py-8 space-y-5 text-center shadow-2xl">
-            <a href="#about" class="block text-brand-parchment hover:text-brand-gold transition text-lg font-serif-title">Sobre Mim</a>
-            <a href="#philosophy" class="block text-brand-parchment hover:text-brand-gold transition text-lg font-serif-title">Visão & Filosofia</a>
-            <a href="#skills" class="block text-brand-parchment hover:text-brand-gold transition text-lg font-serif-title">Competências</a>
-            <a href="#projects" class="block text-brand-parchment hover:text-brand-gold transition text-lg font-serif-title">Projetos</a>
-            <div class="pt-4">
-                <a href="https://wa.me/5582993326723?text=Ol%C3%A1%2C%20Caliel!%20Gostaria%20de%20conversar." target="_blank" class="inline-flex items-center justify-center gap-2 w-full py-3.5 text-xs font-semibold uppercase tracking-wider text-brand-base bg-brand-gold rounded-sm shadow-lg">
-                    <i class="fa-brands fa-whatsapp"></i>
-                    <span>Conversar no WhatsApp</span>
-                </a>
-            </div>
-        </div>
-    </header>
+      <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-ink-700">
+        <a href="#acervo" class="hover:text-sacred-600 transition-colors">Acervo</a>
+        <a href="#antropologia" class="hover:text-sacred-600 transition-colors">Antropologia e Sentido</a>
+        <a href="#palavra-viva" class="hover:text-sacred-600 transition-colors">Palavra Viva</a>
+        <a href="#permanecer-nele" class="hover:text-sacred-600 transition-colors">Permanecer Nele</a>
+      </nav>
 
-    <!-- HERO SECTION -->
-    <section class="min-h-screen flex items-center justify-center pt-32 pb-16 px-6 relative bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-brand-card via-brand-base to-black overflow-hidden">
-        
-        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-brand-wine/25 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="flex items-center gap-3">
+        <a href="https://pay.hotmart.com/Y108368110O" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-ink-900 text-parchment-50 text-xs sm:text-sm font-medium hover:bg-sacred-600 transition-colors">
+          Adquirir E-book
+        </a>
+      </div>
+    </div>
+  </header>
 
-        <div class="max-w-4xl mx-auto text-center z-10 reveal-hero">
-            
-            <div class="inline-flex items-center gap-2.5 px-4 py-2 mb-8 rounded-full bg-brand-card border border-brand-gold/30 text-brand-gold text-xs tracking-widest uppercase shadow-inner">
-                <i class="fa-solid fa-atom text-brand-gold"></i>
-                <span>Tecnologia • Inteligência Artificial • Humanidades</span>
+  <main>
+    <!-- Hero Principal -->
+    <section class="relative overflow-hidden subtle-grid border-b border-parchment-200">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-24">
+        <div class="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+          <div class="lg:col-span-7 space-y-6">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-parchment-200/80 border border-parchment-300 text-ink-700 text-xs font-medium tracking-wide">
+              <span class="w-1.5 h-1.5 rounded-full bg-sacred-500"></span>
+              Biblioteca Virtual de Caliel Militão
             </div>
 
-            <h1 class="font-serif-title text-4xl sm:text-6xl font-bold text-brand-parchment leading-tight mb-6">
-                Construindo Soluções Digitais com <span class="italic text-brand-gold">Propósito</span> e <span class="underline decoration-brand-wine decoration-4">Estratégia</span>
+            <h1 class="font-serif text-4xl sm:text-5xl lg:text-[3.5rem] font-semibold text-ink-900 leading-[1.08] tracking-tight">
+              A busca pelo sentido, a profundidade da alma e a fidelidade à Palavra.
             </h1>
 
-            <p class="text-base sm:text-xl text-brand-muted max-w-2xl mx-auto mb-12 leading-relaxed font-light">
-                Unindo o dinamismo da Inteligência Artificial, a precisão do desenvolvimento web moderno e a profundidade da gestão humana.
+            <p class="text-base sm:text-lg text-ink-600 leading-relaxed max-w-2xl">
+              Bem-vindo à minha biblioteca digital. Reúno aqui reflexões sobre a condição humana, espiritualidade católica e caminhos concretos de encontro com Deus — entre obra publicada, aplicativo diário e um novo livro em construção.
             </p>
 
-            <div class="flex flex-col sm:flex-row justify-center items-center gap-5">
-                <a href="#projects" class="w-full sm:w-auto px-10 py-4 bg-brand-wine hover:bg-brand-wine/80 text-brand-parchment font-medium rounded-sm border border-brand-gold/40 transition duration-300 flex items-center justify-center gap-2.5 group shadow-lg">
-                    <span>Explorar Projetos</span>
-                    <i class="fa-solid fa-arrow-right-long text-brand-gold group-hover:translate-x-1.5 transition-transform"></i>
-                </a>
-                <a href="#about" class="w-full sm:w-auto px-10 py-4 bg-transparent hover:bg-brand-card/60 text-brand-muted hover:text-brand-gold font-medium rounded-sm border border-brand-gold/20 transition duration-300 flex items-center justify-center gap-2">
-                    <span>Minha Trajetória</span>
-                </a>
-            </div>
-        </div>
-
-        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-float text-brand-gold/50 text-xl hidden sm:block">
-            <i class="fa-solid fa-chevron-down"></i>
-        </div>
-    </section>
-
-    <!-- SOBRE MIM -->
-    <section id="about" class="py-28 px-6 bg-brand-base border-t border-brand-gold/10">
-        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-16 items-center">
-            
-            <div class="md:col-span-5 reveal-left">
-                <div class="w-full rounded-sm p-8 gold-border relative overflow-hidden glass-card shadow-2xl">
-                    <div class="flex justify-between items-start mb-8">
-                        <div class="flex items-center gap-3">
-                            <svg class="h-9 w-auto text-brand-gold logo-glow" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M20 68 L50 84 L80 68 L80 44 L50 60 L20 44 Z" fill="#4D1522" stroke="#E5C158" stroke-width="2.5" stroke-linejoin="round"/>
-                                <path d="M20 44 L50 28 L80 44 L50 60 Z" fill="#240D13" stroke="#E5C158" stroke-width="2.5" stroke-linejoin="round"/>
-                                <path d="M50 28 L50 60" stroke="#E5C158" stroke-width="2"/>
-                                <polygon points="50,38 56,44 50,50 44,44" fill="#E5C158"/>
-                            </svg>
-                            <span class="font-serif-title font-bold text-brand-gold text-lg">Caliel Militão</span>
-                        </div>
-                        <i class="fa-solid fa-landmark text-brand-gold/30 text-3xl"></i>
-                    
-                    </div>
-                    <div>
-                        <h3 class="font-serif-title text-3xl font-bold text-brand-parchment">Caliel Militão</h3>
-                        <p class="text-xs text-brand-gold mt-1.5 uppercase tracking-wider font-semibold">Dev • IA • Humanidades</p>
-                        <p class="text-sm text-brand-muted mt-5 leading-relaxed font-light">
-                            Atuando na interseção entre tecnologia ágil, inteligência artificial, gestão de processos e produção intelectual.
-                        </p>
-                    </div>
-                </div>
+            <div class="flex flex-wrap items-center gap-3.5 pt-1">
+              <a href="https://pay.hotmart.com/Y108368110O" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-ink-900 text-parchment-50 text-sm font-semibold hover:bg-sacred-600 transition-colors shadow-sm">
+                Adquirir Antropologia e Sentido
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+              </a>
+              <a href="https://sitepalavraviva.vercel.app/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white border border-parchment-300 text-ink-800 text-sm font-semibold hover:border-sacred-500 hover:text-sacred-700 transition-colors">
+                Acessar App Palavra Viva
+              </a>
             </div>
 
-            <div class="md:col-span-7 reveal-right">
-                <span class="text-xs font-semibold tracking-widest text-brand-gold uppercase">Sobre Mim</span>
-                <h2 class="font-serif-title text-4xl sm:text-5xl font-bold text-brand-parchment mt-2 mb-8 leading-tight">
-                    A Mente por Trás do Código
-                </h2>
-                
-                <div class="space-y-5 text-brand-muted text-base leading-relaxed font-light">
-                    <p>
-                        Minha jornada é impulsionada por uma curiosidade inabalável sobre o ser humano e a tecnologia. Prestes a concluir a graduação em <strong>Gestão de Recursos Humanos</strong>, desenvolvi uma visão estratégica sobre processos operacionais, liderança e comportamento organizacional, sempre buscando entender o papel do indivíduo no centro das estruturas.
-                    </p>
-                    <p>
-                        Essa busca me levou a aprofundar estudos contínuos em <strong>Psicologia</strong>, <strong>Teologia</strong> e <strong>Antropologia</strong>. Compreender a mente humana, a busca pelo sagrado e a busca por sentido no mundo contemporâneo é a fundação que alimenta tanto a escrita do meu livro — <em>Antropologia e Sentido</em> — quanto o meu propósito de vida.
-                    </p>
-                    <p>
-                        Na dimensão técnica, atuo criando <strong>landing pages de alta conversão, portais e sistemas web modernos</strong>. Unindo a agilidade do desenvolvimento assistido por <strong>Inteligência Artificial</strong> com uma curadoria humana rigorosa, entrego soluções digitais que não são apenas esteticamente impecáveis, mas verdadeiramente funcionais e centradas na experiência do usuário.
-                    </p>
-                </div>
-
-                <div class="mt-10 grid grid-cols-2 sm:grid-cols-3 gap-5 pt-8 border-t border-brand-gold/10">
-                    <div>
-                        <span class="block text-3xl font-serif font-bold text-brand-gold">Gestão & IA</span>
-                        <span class="text-xs text-brand-muted tracking-wider uppercase">CST RH & Dev Ágil</span>
-                    </div>
-                    <div>
-                        <span class="block text-3xl font-serif font-bold text-brand-gold">Humanidades</span>
-                        <span class="text-xs text-brand-muted tracking-wider uppercase">Psicologia & Teologia</span>
-                    </div>
-                    <div>
-                        <span class="block text-3xl font-serif font-bold text-brand-gold">Projetos Web</span>
-                        <span class="text-xs text-brand-muted tracking-wider uppercase">Landing Pages & Apps</span>
-                    </div>
-                </div>
+            <div class="pt-4 border-t border-parchment-200 grid grid-cols-3 gap-4 max-w-lg">
+              <div>
+                <p class="font-serif text-xl sm:text-2xl font-semibold text-ink-900">01 Obra</p>
+                <p class="text-xs text-ink-500">Antropologia e Sentido</p>
+              </div>
+              <div>
+                <p class="font-serif text-xl sm:text-2xl font-semibold text-ink-900">01 App</p>
+                <p class="text-xs text-ink-500">Palavra Viva (Católico)</p>
+              </div>
+              <div>
+                <p class="font-serif text-xl sm:text-2xl font-semibold text-sacred-600">Em Escrita</p>
+                <p class="text-xs text-ink-500">Permanecer Nele</p>
+              </div>
             </div>
+          </div>
 
-        </div>
-    </section>
+          <!-- Mockup 3D em Destaque -->
+          <div class="lg:col-span-5 flex flex-col items-center justify-center py-4">
+            <a href="https://pay.hotmart.com/Y108368110O" target="_blank" rel="noopener noreferrer" class="book-3d-wrap relative w-64 sm:w-72 block" aria-label="Adquirir e-book Antropologia e Sentido">
+              <div class="book-3d relative rounded-r-xl rounded-l-sm bg-ink-900 text-parchment-50 p-6 sm:p-7 aspect-[3/4.3] flex flex-col justify-between border border-sacred-500/30">
+                <div class="book-spine hidden sm:block absolute top-0 left-0 w-8 h-full bg-ink-800 border-r border-sacred-500/20 rounded-l-sm"></div>
 
-    <!-- VISÃO & FILOSOFIA -->
-    <section id="philosophy" class="py-28 px-6 bg-brand-card relative">
-        <div class="max-w-6xl mx-auto">
-            
-            <div class="text-center max-w-2xl mx-auto mb-20 reveal-bottom">
-                <span class="text-xs font-semibold tracking-widest text-brand-gold uppercase">Dimensão Intelectual & Social</span>
-                <h2 class="font-serif-title text-4xl sm:text-5xl font-bold text-brand-parchment mt-2 leading-tight">
-                    Antropologia, Sentido e Impacto
-                </h2>
-                <div class="w-16 h-0.5 bg-brand-gold mx-auto mt-6"></div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                
-                <!-- CARD LIVRO -->
-                <div class="glass-card p-10 rounded-sm gold-border relative reveal-left shadow-xl">
-                    <div class="text-brand-gold text-3xl mb-5">
-                        <i class="fa-solid fa-book-bookmark"></i>
-                    </div>
-                    <span class="text-xs uppercase tracking-wider text-brand-gold font-semibold">Obra em Desenvolvimento</span>
-                    <h3 class="font-serif-title text-2xl font-bold text-brand-parchment mt-1.5 mb-4 leading-snug">
-                        Antropologia e Sentido
-                    </h3>
-                    <p class="text-sm text-brand-muted leading-relaxed mb-8 font-light">
-                        Uma investigação profunda sobre a estrutura da alma e da mente humana, o vazio existencial e a busca transcendental por Deus. Um resgate do sentido no mundo contemporâneo.
-                    </p>
-                    <span class="inline-flex items-center gap-2.5 text-xs text-brand-gold font-medium bg-brand-base px-3.5 py-1.5 rounded-full border border-brand-gold/20">
-                        <i class="fa-solid fa-pen-nib"></i>
-                        <span class="uppercase tracking-widest text-[10px]">Em fase de escrita</span>
-                    </span>
+                <div class="flex items-center justify-between text-[10px] uppercase tracking-[0.22em] text-parchment-300/80 border-b border-white/10 pb-3">
+                  <span>Caliel Militão</span>
+                  <span>E-book</span>
                 </div>
 
-                <!-- CARD PALAVRA VIVA -->
-                <div class="glass-card p-10 rounded-sm gold-border relative reveal-right shadow-xl">
-                    <div class="text-brand-gold text-3xl mb-5">
-                        <i class="fa-solid fa-church"></i>
-                    </div>
-                    <span class="text-xs uppercase tracking-wider text-brand-gold font-semibold">Aplicação Web & Comunidade</span>
-                    <h3 class="font-serif-title text-2xl font-bold text-brand-parchment mt-1.5 mb-4 leading-snug">
-                        Palavra Viva
-                    </h3>
-                    <p class="text-sm text-brand-muted leading-relaxed mb-8 font-light">
-                        Plataforma digital interativa (PWA) criada para conectar tecnologia e fé. Uma experiência acessível e fluida para levar reflexão e leitura espiritual para a palma da mão.
-                    </p>
-                    <a href="https://sitepalavraviva.vercel.app/" target="_blank" class="inline-flex items-center gap-2 text-xs text-brand-gold hover:text-brand-parchment transition font-medium group uppercase tracking-widest text-[10px]">
-                        <span>Acessar o Projeto</span>
-                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
-                    </a>
+                <div class="my-auto py-4">
+                  <p class="text-[11px] uppercase tracking-[0.2em] text-sacred-500 font-semibold mb-2">Obra Publicada</p>
+                  <h2 class="font-serif text-3xl sm:text-[2.15rem] font-semibold leading-[1.06] text-parchment-50">
+                    Antropologia e Sentido
+                  </h2>
+                  <div class="w-10 h-[1.5px] bg-sacred-500/80 my-3.5"></div>
+                  <p class="font-serif italic text-sm sm:text-base text-parchment-200/90 leading-snug">
+                    A Estrutura da Alma, o Vazio Existencial e a Busca por Deus
+                  </p>
                 </div>
 
-            </div>
-
-        </div>
-    </section>
-
-    <!-- COMPETÊNCIAS -->
-    <section id="skills" class="py-28 px-6 bg-brand-base border-t border-brand-gold/10">
-        <div class="max-w-6xl mx-auto">
-            
-            <div class="text-center max-w-3xl mx-auto mb-20 reveal-bottom">
-                <span class="text-xs font-semibold tracking-widest text-brand-gold uppercase">Habilidades</span>
-                <h2 class="font-serif-title text-4xl sm:text-5xl font-bold text-brand-parchment mt-2 leading-tight">
-                    Domínio Técnico & Gestão
-                </h2>
-                <div class="w-16 h-0.5 bg-brand-gold mx-auto mt-6"></div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                
-                <div class="p-9 glass-card gold-border rounded-sm reveal-bottom shadow-lg" style="animation-delay: 100ms;">
-                    <div class="text-brand-gold text-3xl mb-5"><i class="fa-solid fa-code"></i></div>
-                    <h3 class="font-serif-title text-xl font-bold text-brand-parchment mb-3">Desenvolvimento Web</h3>
-                    <p class="text-sm text-brand-muted leading-relaxed font-light">
-                        Criação de landing pages de alta conversão, portais e PWAs responsivos com HTML, CSS, Tailwind, JavaScript e frameworks modernos.
-                    </p>
+                <div class="pt-3 border-t border-white/10 flex items-center justify-between text-xs text-parchment-300/80">
+                  <span>Edição Digital</span>
+                  <span class="text-sacred-500 font-medium">Adquirir →</span>
                 </div>
-
-                <div class="p-9 glass-card gold-border rounded-sm reveal-bottom shadow-lg" style="animation-delay: 200ms;">
-                    <div class="text-brand-gold text-3xl mb-5"><i class="fa-solid fa-robot"></i></div>
-                    <h3 class="font-serif-title text-xl font-bold text-brand-parchment mb-3">Engenharia com IA</h3>
-                    <p class="text-sm text-brand-muted leading-relaxed font-light">
-                        Integração de ferramentas de Inteligência Artificial para otimizar fluxos de desenvolvimento, automação e arquitetura.
-                    </p>
-                </div>
-
-                <div class="p-9 glass-card gold-border rounded-sm reveal-bottom shadow-lg" style="animation-delay: 300ms;">
-                    <div class="text-brand-gold text-3xl mb-5"><i class="fa-solid fa-chart-line"></i></div>
-                    <h3 class="font-serif-title text-xl font-bold text-brand-parchment mb-3">Gestão de Processos</h3>
-                    <p class="text-sm text-brand-muted leading-relaxed font-light">
-                        Visão estruturada para solução de problemas organizacionais, coordenação de pessoas e otimização de fluxos de trabalho.
-                    </p>
-                </div>
-
-            </div>
-
-        </div>
-    </section>
-
-    <!-- PROJETOS SELECIONADOS -->
-    <section id="projects" class="py-28 px-6 bg-brand-card">
-        <div class="max-w-6xl mx-auto">
-            
-            <div class="text-center max-w-3xl mx-auto mb-20 reveal-bottom">
-                <span class="text-xs font-semibold tracking-widest text-brand-gold uppercase">Portfólio Selecionado</span>
-                <h2 class="font-serif-title text-4xl sm:text-5xl font-bold text-brand-parchment mt-2 leading-tight">
-                    Projetos & Produção
-                </h2>
-                <p class="text-sm text-brand-muted mt-4 max-w-lg mx-auto font-light">
-                    Iniciativas reais de desenvolvimento web, plataformas digitais e produção intelectual.
-                </p>
-                <div class="w-16 h-0.5 bg-brand-gold mx-auto mt-6"></div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-9">
-                
-                <!-- PROJETO 1: KAUÃ ZOEIRA -->
-                <div class="glass-card gold-border p-8 rounded-sm flex flex-col justify-between reveal-left shadow-xl">
-                    <div>
-                        <div class="flex justify-between items-start mb-5">
-                            <span class="text-[10px] uppercase font-mono tracking-wider text-brand-gold bg-brand-wine/80 px-2.5 py-1 rounded">Portal Oficial</span>
-                            <i class="fa-solid fa-globe text-brand-muted text-lg"></i>
-                        </div>
-                        <h3 class="font-serif-title text-2xl font-bold text-brand-parchment mb-3 leading-snug">Kauã Zoeira Portal</h3>
-                        <p class="text-sm text-brand-muted leading-relaxed mb-8 font-light">
-                            Plataforma oficial moderna e otimizada para o criador de conteúdo Kauã Zoeira, centralizando mídias, contatos e projetos.
-                        </p>
-                    </div>
-                    <div class="flex items-center justify-between pt-5 border-t border-brand-gold/10">
-                        <span class="text-[11px] text-brand-muted uppercase tracking-wider font-mono">Web • Branding</span>
-                        <a href="https://kauazoeiraportaloficial.vercel.app/" target="_blank" class="text-xs font-semibold text-brand-gold hover:text-brand-parchment transition flex items-center gap-1.5 uppercase tracking-widest text-[10px]">
-                            <span>Visitar</span>
-                            <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- PROJETO 2: PALAVRA VIVA -->
-                <div class="glass-card gold-border p-8 rounded-sm flex flex-col justify-between reveal-bottom shadow-xl">
-                    <div>
-                        <div class="flex justify-between items-start mb-5">
-                            <span class="text-[10px] uppercase font-mono tracking-wider text-brand-gold bg-brand-wine/80 px-2.5 py-1 rounded">PWA & Fé</span>
-                            <i class="fa-solid fa-mobile-screen text-brand-muted text-lg"></i>
-                        </div>
-                        <h3 class="font-serif-title text-2xl font-bold text-brand-parchment mb-3 leading-snug">Palavra Viva App</h3>
-                        <p class="text-sm text-brand-muted leading-relaxed mb-8 font-light">
-                            Aplicação web progressiva para leitura diária e conteúdo devocional, oferecendo uma experiência acolhedora e veloz.
-                        </p>
-                    </div>
-                    <div class="flex items-center justify-between pt-5 border-t border-brand-gold/10">
-                        <span class="text-[11px] text-brand-muted uppercase tracking-wider font-mono">React • Vite</span>
-                        <a href="https://sitepalavraviva.vercel.app/" target="_blank" class="text-xs font-semibold text-brand-gold hover:text-brand-parchment transition flex items-center gap-1.5 uppercase tracking-widest text-[10px]">
-                            <span>Visitar</span>
-                            <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- PROJETO 3: O LIVRO -->
-                <div class="glass-card gold-border p-8 rounded-sm flex flex-col justify-between reveal-right shadow-xl">
-                    <div>
-                        <div class="flex justify-between items-start mb-5">
-                            <span class="text-[10px] uppercase font-mono tracking-wider text-brand-gold bg-brand-wine/80 px-2.5 py-1 rounded">Obra Literária</span>
-                            <i class="fa-solid fa-book text-brand-muted text-lg"></i>
-                        </div>
-                        <h3 class="font-serif-title text-2xl font-bold text-brand-parchment mb-3 leading-snug">Antropologia e Sentido</h3>
-                        <p class="text-sm text-brand-muted leading-relaxed mb-8 font-light">
-                            Livro em processo de escrita focado na mente humana, no vazio existencial e na busca pelo Sagrado no mundo contemporâneo.
-                        </p>
-                    </div>
-                    <div class="flex items-center justify-between pt-5 border-t border-brand-gold/10">
-                        <span class="text-[11px] text-brand-muted uppercase tracking-wider font-mono">Filosofia</span>
-                        <span class="text-xs text-brand-gold italic font-medium px-3.5 py-1 bg-brand-base rounded-full text-[10px] uppercase tracking-wider border border-brand-gold/20">Em breve</span>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-    </section>
-
-    <!-- FOOTER / CONTATO -->
-    <footer class="py-24 px-6 bg-brand-base border-t border-brand-gold/20 text-center relative overflow-hidden">
-        
-        <div class="max-w-3xl mx-auto reveal-bottom z-10 relative">
-            
-            <!-- LOGO FOOTER -->
-            <div class="flex items-center justify-center gap-3.5 mb-8">
-                <svg class="h-12 w-auto text-brand-gold logo-glow" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 68 L50 84 L80 68 L80 44 L50 60 L20 44 Z" fill="#4D1522" stroke="#E5C158" stroke-width="2.5" stroke-linejoin="round"/>
-                    <path d="M20 44 L50 28 L80 44 L50 60 Z" fill="#240D13" stroke="#E5C158" stroke-width="2.5" stroke-linejoin="round"/>
-                    <path d="M50 28 L50 60" stroke="#E5C158" stroke-width="2"/>
-                    <polygon points="50,38 56,44 50,50 44,44" fill="#E5C158"/>
-                </svg>
-                <span class="font-serif-title text-2xl font-bold text-brand-parchment">Caliel Militão</span>
-            </div>
-            
-            <h2 class="font-serif-title text-4xl font-bold text-brand-parchment mb-5 leading-tight">
-                Vamos Construir Algo Excepcional?
-            </h2>
-            <p class="text-base text-brand-muted mb-10 max-w-lg mx-auto font-light leading-relaxed">
-                Seja para desenvolver uma plataforma web sob medida, integrar IA ao seu negócio ou trocar ideias sobre projetos e filosofia.
-            </p>
-
-            <a href="https://wa.me/5582993326723?text=Ol%C3%A1%2C%20Caliel!%20Gostaria%20de%20iniciar%20um%20projeto." target="_blank" class="inline-flex items-center gap-3 px-10 py-4.5 bg-brand-gold text-brand-base font-bold text-sm tracking-widest uppercase rounded-sm hover:bg-brand-goldHover transition duration-300 shadow-xl mb-14 hover:scale-105 transform">
-                <i class="fa-brands fa-whatsapp text-lg"></i>
-                <span>Iniciar Conversa no WhatsApp</span>
+              </div>
             </a>
+            <button type="button" onclick="openSampleModal()" class="mt-6 text-xs font-medium text-ink-600 hover:text-sacred-600 underline underline-offset-4 transition-colors cursor-pointer">
+              Ou clique aqui para ler uma amostra gratuita
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            <div class="flex justify-center space-x-7 text-brand-gold text-2xl mb-10">
-                <a href="https://instagram.com/calielmilitao" target="_blank" class="hover:text-brand-parchment transition hover:-translate-y-1 transform duration-200"><i class="fa-brands fa-instagram"></i></a>
-                <a href="https://wa.me/5582993326723" target="_blank" class="hover:text-brand-parchment transition hover:-translate-y-1 transform duration-200"><i class="fa-brands fa-whatsapp"></i></a>
+    <!-- Acervo / Estante com Filtro -->
+    <section id="acervo" class="py-16 sm:py-20 border-b border-parchment-200">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+          <div>
+            <span class="text-xs font-semibold uppercase tracking-[0.2em] text-sacred-600">Estante Digital</span>
+            <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-ink-900 mt-1">Obras &amp; Projetos da Biblioteca</h2>
+          </div>
+
+          <div class="inline-flex flex-wrap gap-1.5 p-1 rounded-xl bg-parchment-200/70 border border-parchment-300/80 self-start" role="tablist" aria-label="Filtrar itens da biblioteca">
+            <button type="button" data-filter="all" class="filter-btn px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium bg-ink-900 text-parchment-50 transition-all cursor-pointer">
+              Todos (3)
+            </button>
+            <button type="button" data-filter="livro" class="filter-btn px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-ink-700 hover:text-ink-900 transition-all cursor-pointer">
+              E-book Publicado
+            </button>
+            <button type="button" data-filter="app" class="filter-btn px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-ink-700 hover:text-ink-900 transition-all cursor-pointer">
+              App Católico
+            </button>
+            <button type="button" data-filter="ebook" class="filter-btn px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-ink-700 hover:text-ink-900 transition-all cursor-pointer">
+              Novo E-book
+            </button>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <!-- Card 1: Antropologia e Sentido -->
+          <article data-category="livro" class="shelf-card group bg-white rounded-2xl border border-parchment-200 p-6 flex flex-col justify-between hover:border-sacred-500/60 hover:shadow-md transition-all">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-4">
+                <span class="px-2.5 py-1 rounded-md bg-parchment-100 text-sacred-700 text-xs font-semibold">E-book</span>
+                <span class="text-xs text-emerald-700 font-medium">Disponível</span>
+              </div>
+              <h3 class="font-serif text-2xl font-semibold text-ink-900 leading-snug">
+                Antropologia e Sentido
+              </h3>
+              <p class="font-serif italic text-sm text-ink-600 mt-1">
+                A Estrutura da Alma, o Vazio Existencial e a Busca por Deus
+              </p>
+              <p class="text-sm text-ink-600 mt-4 leading-relaxed">
+                Uma investigação profunda sobre o que compõe a interioridade humana, por que o vazio surge quando reduzimos a existência ao imediato e como a busca por Deus responde ao anseio mais íntimo da alma.
+              </p>
+            </div>
+            <div class="pt-6 mt-6 border-t border-parchment-100 flex items-center justify-between">
+              <a href="https://pay.hotmart.com/Y108368110O" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-sacred-700 hover:text-sacred-500 transition-colors">
+                Adquirir e-book →
+              </a>
+              <button type="button" onclick="openSampleModal()" class="text-xs font-medium text-ink-500 hover:text-ink-900 cursor-pointer">
+                Ler trecho
+              </button>
+            </div>
+          </article>
+
+          <!-- Card 2: Palavra Viva -->
+          <article data-category="app" class="shelf-card group bg-white rounded-2xl border border-parchment-200 p-6 flex flex-col justify-between hover:border-sacred-500/60 hover:shadow-md transition-all">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-4">
+                <span class="px-2.5 py-1 rounded-md bg-vesper-900 text-parchment-100 text-xs font-semibold">App Católico</span>
+                <span class="text-xs text-sacred-700 font-medium">Online</span>
+              </div>
+              <h3 class="font-serif text-2xl font-semibold text-ink-900 leading-snug">
+                Palavra Viva
+              </h3>
+              <p class="font-serif italic text-sm text-ink-600 mt-1">
+                Oração, Escritura e vida interior no cotidiano
+              </p>
+              <p class="text-sm text-ink-600 mt-4 leading-relaxed">
+                Aplicativo católico criado para aproximar o fiel da Palavra de Deus no dia a dia, favorecendo o recolhimento, a meditação bíblica e a constância espiritual sem ruído.
+              </p>
+            </div>
+            <div class="pt-6 mt-6 border-t border-parchment-100 flex items-center justify-between">
+              <a href="https://sitepalavraviva.vercel.app/" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-sacred-700 hover:text-sacred-500 transition-colors">
+                Acessar aplicativo →
+              </a>
+              <a href="#palavra-viva" class="text-xs font-medium text-ink-500 hover:text-ink-900">Detalhes</a>
+            </div>
+          </article>
+
+          <!-- Card 3: Permanecer Nele -->
+          <article data-category="ebook" class="shelf-card group bg-white rounded-2xl border border-parchment-200 p-6 flex flex-col justify-between hover:border-sacred-500/60 hover:shadow-md transition-all">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-4">
+                <span class="px-2.5 py-1 rounded-md bg-sacred-500/15 text-sacred-700 text-xs font-semibold">Novo E-book</span>
+                <span class="text-xs text-ink-500">Em escrita</span>
+              </div>
+              <h3 class="font-serif text-2xl font-semibold text-ink-900 leading-snug">
+                Permanecer Nele
+              </h3>
+              <p class="font-serif italic text-sm text-ink-600 mt-1">
+                Descobrindo o Propósito, o Amor e a Vontade de Deus na Palavra
+              </p>
+              <p class="text-sm text-ink-600 mt-4 leading-relaxed">
+                Próximo e-book em desenvolvimento: um convite a habitar na Palavra para discernir o propósito de vida, experimentar o amor que sustenta e reconhecer a vontade de Deus nas escolhas diárias.
+              </p>
+            </div>
+            <div class="pt-6 mt-6 border-t border-parchment-100 flex items-center justify-between">
+              <a href="#permanecer-nele" class="text-sm font-semibold text-sacred-700 hover:text-sacred-500 transition-colors">
+                Entrar na lista →
+              </a>
+              <span class="text-xs text-ink-500">Pré-lançamento</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção Detalhada: Antropologia e Sentido -->
+    <section id="antropologia" class="py-16 sm:py-24 bg-parchment-100/70 border-b border-parchment-200">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-12 gap-12 items-start">
+          <div class="lg:col-span-5 space-y-5">
+            <span class="text-xs font-semibold uppercase tracking-[0.2em] text-sacred-600">E-book de Caliel Militão</span>
+            <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-ink-900 leading-tight">
+              Antropologia e Sentido
+            </h2>
+            <p class="font-serif italic text-xl text-ink-700">
+              A Estrutura da Alma, o Vazio Existencial e a Busca por Deus
+            </p>
+            <p class="text-sm sm:text-base text-ink-600 leading-relaxed">
+              Escrito para leitores que não se contentam com respostas superficiais sobre quem somos, este livro examina a arquitetura da alma humana, as raízes do vazio existencial contemporâneo e o caminho de retorno ao sentido último encontrado em Deus.
+            </p>
+            <div class="pt-2 flex flex-wrap gap-3">
+              <a href="https://pay.hotmart.com/Y108368110O" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-ink-900 text-parchment-50 text-sm font-semibold hover:bg-sacred-600 transition-colors">
+                Adquirir E-book Agora
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+              </a>
+              <button type="button" onclick="openSampleModal()" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-parchment-300 bg-white text-ink-800 text-sm font-medium hover:border-sacred-500 transition-colors cursor-pointer">
+                Ler Trecho Introdutório
+              </button>
+            </div>
+          </div>
+
+          <div class="lg:col-span-7 grid sm:grid-cols-2 gap-5">
+            <div class="bg-white rounded-2xl p-6 border border-parchment-200">
+              <span class="font-serif text-2xl font-semibold text-sacred-600">01</span>
+              <h3 class="font-serif text-xl font-semibold text-ink-900 mt-1">A Estrutura da Alma</h3>
+              <p class="text-sm text-ink-600 mt-2 leading-relaxed">
+                Como inteligência, memória, liberdade, afetividade e consciência se articulam na unidade da pessoa humana.
+              </p>
             </div>
 
-            <p class="text-xs text-brand-muted/70 font-light tracking-wide uppercase text-[10px]">
-                © Caliel Militão • Todos os direitos reservados.
-            </p>
+            <div class="bg-white rounded-2xl p-6 border border-parchment-200">
+              <span class="font-serif text-2xl font-semibold text-sacred-600">02</span>
+              <h3 class="font-serif text-xl font-semibold text-ink-900 mt-1">O Vazio Existencial</h3>
+              <p class="text-sm text-ink-600 mt-2 leading-relaxed">
+                Por que o excesso de estímulos, pressa e superficialidade deixa uma inquietação que nenhum consumo resolve.
+              </p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-6 border border-parchment-200">
+              <span class="font-serif text-2xl font-semibold text-sacred-600">03</span>
+              <h3 class="font-serif text-xl font-semibold text-ink-900 mt-1">A Busca por Deus</h3>
+              <p class="text-sm text-ink-600 mt-2 leading-relaxed">
+                A abertura natural do espírito humano ao Infinito, à verdade objetiva e à plenitude que transcende o tempo.
+              </p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-6 border border-parchment-200">
+              <span class="font-serif text-2xl font-semibold text-sacred-600">04</span>
+              <h3 class="font-serif text-xl font-semibold text-ink-900 mt-1">Sentido e Unidade</h3>
+              <p class="text-sm text-ink-600 mt-2 leading-relaxed">
+                Como reconciliar pensamento, fé e vida prática para viver com coerência interior e direção clara.
+              </p>
+            </div>
+          </div>
         </div>
-    </footer>
+      </div>
+    </section>
 
-    <!-- SCRIPTS PARA NAVEGAÇÃO E ANIMAÇÕES -->
-    <script>
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
+    <!-- Seção App Católico: Palavra Viva -->
+    <section id="palavra-viva" class="py-16 sm:py-24 bg-vesper-950 text-parchment-50">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-12 gap-12 items-center">
+          <div class="lg:col-span-7 space-y-6">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-vesper-800 border border-white/10 text-sacred-500 text-xs font-semibold uppercase tracking-[0.18em]">
+              Aplicativo Católico
+            </div>
 
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+            <h2 class="font-serif text-3xl sm:text-5xl font-semibold text-white leading-tight">
+              Palavra Viva
+            </h2>
+
+            <p class="text-base sm:text-lg text-parchment-200/85 leading-relaxed max-w-2xl">
+              Um espaço digital voltado à vida de oração e à escuta diária das Escrituras. O <strong class="text-white font-semibold">Palavra Viva</strong> foi pensado para acompanhar o fiel com serenidade, clareza e constância em meio à rotina.
+            </p>
+
+            <ul class="space-y-3.5 text-sm sm:text-base text-parchment-200/90 pt-1">
+              <li class="flex items-start gap-3">
+                <span class="mt-1.5 w-2 h-2 rounded-full bg-sacred-500 shrink-0"></span>
+                <span><strong class="text-white">Escuta da Palavra:</strong> acesso direto à leitura e reflexão bíblica para nutrir a fé todos os dias.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-1.5 w-2 h-2 rounded-full bg-sacred-500 shrink-0"></span>
+                <span><strong class="text-white">Ambiente sóbrio e orante:</strong> interface limpa, livre de distrações excessivas, favorecendo o silêncio interior.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-1.5 w-2 h-2 rounded-full bg-sacred-500 shrink-0"></span>
+                <span><strong class="text-white">Ponte com a vida real:</strong> meditações que conectam a tradição católica às perguntas concretas do dia a dia.</span>
+              </li>
+            </ul>
+
+            <div class="pt-3 flex flex-wrap items-center gap-4">
+              <a href="https://sitepalavraviva.vercel.app/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-sacred-500 text-white text-sm font-semibold hover:bg-sacred-600 transition-colors">
+                Acessar o App Palavra Viva
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" /></svg>
+              </a>
+              <span class="text-xs text-parchment-300/70">Desenvolvido por Caliel Militão</span>
+            </div>
+          </div>
+
+          <!-- Mockup de Smartphone -->
+          <div class="lg:col-span-5 flex justify-center">
+            <a href="https://sitepalavraviva.vercel.app/" target="_blank" rel="noopener noreferrer" class="w-72 rounded-[2.4rem] bg-vesper-900 border-[6px] border-vesper-800 p-5 shadow-2xl hover:border-sacred-500/60 transition-colors block" aria-label="Abrir aplicativo Palavra Viva">
+              <div class="w-20 h-1.5 bg-vesper-800 rounded-full mx-auto mb-5"></div>
+
+              <div class="rounded-2xl bg-vesper-950/90 border border-white/10 p-4 space-y-4">
+                <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                  <div>
+                    <p class="text-[10px] uppercase tracking-[0.2em] text-sacred-500 font-semibold">App Católico</p>
+                    <p class="font-serif text-xl font-semibold text-white">Palavra Viva</p>
+                  </div>
+                  <span class="w-8 h-8 rounded-full bg-sacred-500/20 text-sacred-500 flex items-center justify-center font-serif text-sm">✦</span>
+                </div>
+
+                <blockquote class="font-serif italic text-base text-parchment-100 leading-relaxed">
+                  “Permanecei em mim, e eu permanecerei em vós.”
+                </blockquote>
+
+                <div class="bg-vesper-900/90 rounded-xl p-3 border border-white/5">
+                  <p class="text-[11px] uppercase tracking-wider text-parchment-300/70 font-medium">Meditatio</p>
+                  <p class="text-xs text-parchment-200/85 mt-1 leading-relaxed">
+                    A Palavra não é apenas informação para a mente; é presença viva que ordena o coração e ilumina os passos.
+                  </p>
+                </div>
+
+                <div class="flex items-center justify-between text-[11px] text-parchment-300/70 pt-1">
+                  <span>Oração &amp; Palavra</span>
+                  <span class="text-sacred-500 font-medium">Abrir app →</span>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção Novo E-book em Escrita: Permanecer Nele -->
+    <section id="permanecer-nele" class="py-16 sm:py-24 bg-parchment-50">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-3xl border border-parchment-200 p-7 sm:p-12 shadow-sm">
+          <div class="grid lg:grid-cols-12 gap-10 items-center">
+            <div class="lg:col-span-7 space-y-4">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sacred-500/10 text-sacred-700 text-xs font-semibold uppercase tracking-[0.16em]">
+                Em Escrita • Novo E-book
+              </div>
+
+              <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-ink-900 leading-tight">
+                Permanecer Nele
+              </h2>
+
+              <p class="font-serif italic text-lg sm:text-xl text-sacred-700">
+                Descobrindo o Propósito, o Amor e a Vontade de Deus na Palavra
+              </p>
+
+              <p class="text-sm sm:text-base text-ink-600 leading-relaxed">
+                Estou escrevendo este novo e-book para aprofundar o que significa permanecer na Palavra em tempos de pressa, dúvida e ruído. A obra explora três eixos essenciais para a caminhada cristã:
+              </p>
+
+              <div class="grid sm:grid-cols-3 gap-3 pt-1">
+                <div class="p-3.5 rounded-xl bg-parchment-100/80 border border-parchment-200">
+                  <p class="font-serif text-base font-semibold text-ink-900">O Propósito</p>
+                  <p class="text-xs text-ink-600 mt-1">Encontrar sentido duradouro à luz da Revelação.</p>
+                </div>
+                <div class="p-3.5 rounded-xl bg-parchment-100/80 border border-parchment-200">
+                  <p class="font-serif text-base font-semibold text-ink-900">O Amor</p>
+                  <p class="text-xs text-ink-600 mt-1">Reconhecer a iniciativa gratuita e fiel de Deus.</p>
+                </div>
+                <div class="p-3.5 rounded-xl bg-parchment-100/80 border border-parchment-200">
+                  <p class="font-serif text-base font-semibold text-ink-900">A Vontade</p>
+                  <p class="text-xs text-ink-600 mt-1">Discernir caminhos com paz e obediência interior.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Formulário de Lista de Espera via WhatsApp -->
+            <div class="lg:col-span-5 bg-parchment-100/70 rounded-2xl p-6 border border-parchment-200">
+              <h3 class="font-serif text-2xl font-semibold text-ink-900">
+                Entre na lista de aviso
+              </h3>
+              <p class="text-xs sm:text-sm text-ink-600 mt-1.5 leading-relaxed">
+                Preencha seus dados e envie diretamente no WhatsApp para ser avisado quando <em>Permanecer Nele</em> for lançado.
+              </p>
+
+              <form id="waitlist-form" class="mt-5 space-y-3.5" novalidate>
+                <div>
+                  <label for="reader-name" class="block text-xs font-semibold text-ink-700 mb-1">Seu nome</label>
+                  <input
+                    id="reader-name"
+                    type="text"
+                    required
+                    placeholder="Como prefere ser chamado?"
+                    class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-parchment-300 text-sm text-ink-900 placeholder:text-ink-500/70 focus:outline-none focus:border-sacred-600"
+                  />
+                </div>
+
+                <div>
+                  <label for="reader-email" class="block text-xs font-semibold text-ink-700 mb-1">Seu melhor e-mail</label>
+                  <input
+                    id="reader-email"
+                    type="email"
+                    required
+                    placeholder="voce@exemplo.com"
+                    class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-parchment-300 text-sm text-ink-900 placeholder:text-ink-500/70 focus:outline-none focus:border-sacred-600"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  class="w-full py-3 px-4 rounded-xl bg-ink-900 text-parchment-50 text-sm font-semibold hover:bg-sacred-600 transition-colors cursor-pointer"
+                >
+                  Quero ser avisado do lançamento
+                </button>
+
+                <p id="waitlist-feedback" class="hidden text-xs font-medium rounded-xl p-3"></p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Rodapé -->
+  <footer class="bg-parchment-100 border-t border-parchment-200 py-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-ink-600">
+      <div>
+        <span class="font-serif text-lg font-semibold text-ink-900">Caliel Militão</span>
+        <span class="mx-2 text-parchment-300">•</span>
+        <span>Biblioteca Virtual</span>
+      </div>
+      <div class="flex flex-wrap items-center gap-5 text-xs sm:text-sm">
+        <a href="https://pay.hotmart.com/Y108368110O" target="_blank" rel="noopener noreferrer" class="hover:text-sacred-600 transition-colors">Antropologia e Sentido</a>
+        <a href="https://sitepalavraviva.vercel.app/" target="_blank" rel="noopener noreferrer" class="hover:text-sacred-600 transition-colors">App Palavra Viva</a>
+        <a href="#permanecer-nele" class="hover:text-sacred-600 transition-colors">Permanecer Nele</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal de Trecho de Leitura -->
+  <div id="sample-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-ink-900/65 backdrop-blur-xs" role="dialog" aria-modal="true" aria-labelledby="sample-modal-title">
+    <div class="bg-parchment-50 border border-parchment-300 rounded-2xl max-w-xl w-full p-6 sm:p-8 shadow-2xl relative">
+      <div class="flex items-start justify-between gap-4 border-b border-parchment-200 pb-4">
+        <div>
+          <p class="text-[11px] uppercase tracking-[0.2em] text-sacred-600 font-semibold">Trecho de Leitura</p>
+          <h3 id="sample-modal-title" class="font-serif text-2xl font-semibold text-ink-900 mt-0.5">
+            Antropologia e Sentido
+          </h3>
+        </div>
+        <button type="button" onclick="closeSampleModal()" aria-label="Fechar trecho de leitura" class="w-8 h-8 rounded-lg flex items-center justify-center text-ink-600 hover:bg-parchment-200 hover:text-ink-900 transition-colors cursor-pointer">
+          ✕
+        </button>
+      </div>
+
+      <div class="mt-5 space-y-4 font-serif text-lg text-ink-800 leading-relaxed">
+        <p>
+          O ser humano não é apenas um feixe de impulsos biológicos nem uma engrenagem funcional dentro de um sistema. Há na alma uma abertura originária que nenhuma resposta pequena consegue encerrar.
+        </p>
+        <p>
+          Quando o vazio existencial se manifesta, ele raramente é sinal de fraqueza sem causa: muitas vezes é o eco de uma sede profunda por verdade, inteireza e comunhão com aquilo que não passa — a busca por Deus.
+        </p>
+      </div>
+
+      <div class="mt-6 pt-4 border-t border-parchment-200 flex items-center justify-between gap-3">
+        <button type="button" onclick="closeSampleModal()" class="px-4 py-2 rounded-xl border border-parchment-300 text-ink-700 text-xs font-semibold hover:bg-parchment-200 transition-colors cursor-pointer">
+          Fechar
+        </button>
+        <a href="https://pay.hotmart.com/Y108368110O" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-ink-900 text-parchment-50 text-xs font-semibold hover:bg-sacred-600 transition-colors">
+          Adquirir e-book completo →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Filtro da estante
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const shelfCards = document.querySelectorAll('.shelf-card');
+
+    filterButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter');
+
+        filterButtons.forEach((b) => {
+          b.classList.remove('bg-ink-900', 'text-parchment-50');
+          b.classList.add('text-ink-700');
         });
+        btn.classList.add('bg-ink-900', 'text-parchment-50');
+        btn.classList.remove('text-ink-700');
 
-        document.querySelectorAll('#mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
+        shelfCards.forEach((card) => {
+          const category = card.getAttribute('data-category');
+          if (filter === 'all' || category === filter) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
         });
+      });
+    });
 
-        const sr = ScrollReveal({
-            origin: 'bottom',
-            distance: '45px',
-            duration: 900,
-            delay: 100,
-            easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
-            reset: false
-        });
+    // Modal de amostra
+    const sampleModal = document.getElementById('sample-modal');
+    function openSampleModal() {
+      sampleModal.classList.remove('hidden');
+      sampleModal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeSampleModal() {
+      sampleModal.classList.add('hidden');
+      sampleModal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+    sampleModal.addEventListener('click', (e) => {
+      if (e.target === sampleModal) closeSampleModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !sampleModal.classList.contains('hidden')) {
+        closeSampleModal();
+      }
+    });
 
-        sr.reveal('.reveal-hero', { origin: 'top', distance: '25px' });
-        sr.reveal('.reveal-bottom');
-        sr.reveal('.reveal-left', { origin: 'left', distance: '50px' });
-        sr.reveal('.reveal-right', { origin: 'right', distance: '50px' });
-    </script>
+    // Formulário da lista de espera com redirecionamento para WhatsApp
+    const waitlistForm = document.getElementById('waitlist-form');
+    const waitlistFeedback = document.getElementById('waitlist-feedback');
+    const WHATSAPP_NUMBER = '5582993326723';
+
+    waitlistForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const nameInput = document.getElementById('reader-name');
+      const emailInput = document.getElementById('reader-email');
+      const name = nameInput.value.trim();
+      const email = emailInput.value.trim();
+      const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+      waitlistFeedback.classList.remove('hidden', 'bg-red-50', 'text-red-700', 'bg-emerald-50', 'text-emerald-800');
+
+      if (!name || !validEmail) {
+        waitlistFeedback.textContent = 'Preencha seu nome e um endereço de e-mail válido.';
+        waitlistFeedback.classList.add('bg-red-50', 'text-red-700');
+        return;
+      }
+
+      const message = `Olá, Caliel! Quero ser avisado do lançamento do e-book *Permanecer Nele*.\n\n*Nome:* ${name}\n*E-mail:* ${email}`;
+      const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
+      waitlistFeedback.textContent = `Redirecionando para o WhatsApp para confirmar seu aviso, ${name}...`;
+      waitlistFeedback.classList.add('bg-emerald-50', 'text-emerald-800');
+
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+      waitlistForm.reset();
+    });
+  </script>
 </body>
 </html>
